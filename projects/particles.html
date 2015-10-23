@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Particles</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0px;
+            
+        }
+        .controls {
+            position: absolute;
+            bottom: 0px;
+            background: rgba(0,0,0,0.5);
+            height: 100px;
+            width: 100%;
+            font-family: helvetica, sans-serif;
+        }
+        .checks div, .text-inputs div {
+            display: inline-block;
+        }
+
+        .colorToggle {
+            padding:15px;
+        }
+        
+        .canvasStuff {
+            height: 1px;
+            width: 100%;
+            position: relative;
+        }
+        .lighterwaves {
+            position: absolute;
+            display: inline-block;
+            right: 0px;
+            top: 35px;
+        }
+        .lighter {
+            font-size: 20px;
+        }
+        .waves {
+            position: relative;
+            left: -4px;
+            font-weight: bold;
+            font-size: 20px;
+        }
+        .twod {
+            position: relative;
+            font-size: 10px;
+            top: -5px;
+            left: -5px;
+        }
+        .groundplane {
+            
+            background: #bbc0c9; /* Old browsers */
+        background: -moz-linear-gradient(top,  #bbc0c9 0%, #c1c1c1 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#bbc0c9), color-stop(100%,#c1c1c1)); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top,  #bbc0c9 0%,#c1c1c1 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top,  #bbc0c9 0%,#c1c1c1 100%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(top,  #bbc0c9 0%,#c1c1c1 100%); /* IE10+ */
+        background: linear-gradient(to bottom,  #bbc0c9 0%,#c1c1c1 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bbc0c9', endColorstr='#c1c1c1',GradientType=0 ); /* IE6-9 */
+
+
+            position: absolute;
+            bottom: 100px;
+            height: 20%;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="groundplane"></div>
+    <div class="canvasStuff">
+        <canvas id="canvas" />
+    </div>
+    
+    <div class="controls">
+        <div class="checks">
+            <div class="colorToggle">
+                <input type="checkbox" name="color" value="0" id="color"> Color
+            </div>
+            <div>
+                <input type="checkbox" name="color" value="0" id="bouncy" checked=true> Bouncy
+            </div>
+            <div>
+                <input type="checkbox" name="color" value="0" id="gravity"> Gravity-schmavity
+            </div>
+        </div>
+        <div class="text-inputs">
+            <div class="radius-variation">
+            Size Variation: <input type="text" value="8" id="radius-var">
+            </div>
+            <div class="radius-size">
+                Size: <input type="text" value="1" id="radius-size">
+            </div>
+            <div class="particle-amount">
+                Number of Particles: <input type="text" value="200" id="amount">
+            </div>
+        </div>
+        <div class="lighterwaves">
+            <div>Prokopchuk's</div>
+            <span class="lighter">Lighter</span>
+            <span class="waves">Waves</span>
+            <span class="twod">2D</span>
+        </div>
+    </div>
+    <script type="text/javascript">
+    // event listener
+    $('#color').on('click', toggleColor);
+    $('#bouncy').on('click', toggleBounce);
+    $('#gravity').on('click', toggleGravity);
+    $('#radius-var').on('keyup', recalcRadii);
+    $('#radius-size').on('keyup', recalcRadii);
+    $('#amount').on('keyup', setMaxNumParticles);
+
+    $('#canvas').attr({
+        'width': $(document).width() + 'px',
+        'height': $(document).height() - 100 + 'px'
+    });
+
+    var points = [],
+        numPoints = 0,
+        maxPoints = 200,
+        canvas = $('#canvas')[0],
+        bounce = -1,
+        radiusMin = 1,
+        radiusVariation = 8,
+        width = canvas.width,
+        height = canvas.height,
+        context = canvas.getContext('2d'),
+        gravity = 0.2,
+        noGravity = false,
+        bouncy = true,
+        colorEnabled = false,
+        radiusChanged = false,
+        emitter = {
+            x: width / 2,
+            y: height
+        },
+        firstPoint,
+        lastPoint,
+        lifetime = 80;
+
+    init();
+
+    function recalcRadii() {
+        var rvar = parseInt($('#radius-var').val(), 10),
+            rsize = parseInt($('#radius-size').val(), 10),
+            changed = false;
+
+        if (!isNaN(rvar) && rvar !== radiusVariation) {
+            radiusVariation = rvar;
+            changed = true;
+        }
+
+        if (!isNaN(rsize) && rsize !== radiusMin) {
+            radiusMin = rsize;
+            changed = true;
+        }
+
+        if (changed) {
+            radiusChanged = true;
+        }
+    }
+
+    function setMaxNumParticles() {
+        var amt = parseInt($('#amount').val(), 10);
+
+        if (!isNaN(amt) && amt !== maxPoints) {
+            maxPoints = amt;
+        }
+    }
+    
+    function toggleBounce() {
+        bouncy = !bouncy;
+    }
+
+    function toggleColor() {
+        colorEnabled = !colorEnabled;
+    }
+
+    function toggleGravity() {
+        gravity = -gravity;
+    }
+
+    function init() {
+        setInterval(function() {
+            addPoint();
+            update();
+            draw();
+        }, 1000/24);
+    }
+
+    function addPoint() {
+        var point;
+        if (numPoints < maxPoints) {
+            point = {};
+            initPoint(point);
+            if (numPoints === 0) {
+                firstPoint = point;
+            } else {
+                lastPoint.next = point;
+            }
+            lastPoint = point;
+            numPoints++;
+        }
+    }
+
+    function initPoint(p) {
+
+        if (!p) {
+            var p = {};
+        }
+
+        p.x = emitter.x;
+        p.y = emitter.y;
+        p.vx = Math.random() * 4 - 2;
+        p.vy = Math.random() * -5 - 5;
+        p.radius = Math.random() * radiusVariation + radiusMin;
+        p.color = randomColor();
+
+        points.push(p);
+        return p;
+    }
+
+    function resetPoint(point) {
+        point.x = Math.random() * width;
+        point.y = Math.random() * height;
+        point.vx = Math.random() * 10 - 5;
+        point.vy = Math.random() * 10 - 5;
+        point.life = 0;
+        point.isAlive = true;
+    }
+
+    function randomColor() {
+        var r = Math.floor(Math.random() * 255),
+            g = Math.floor(Math.random() * 255),
+            b = Math.floor(Math.random() * 255);
+
+        return "rgb(" + r + "," + g + "," + b + ")";
+    }
+
+    function update() {
+        var i,
+            point = firstPoint,
+            len = points.length;
+
+
+
+        for (i = 0; i < len; i++) {
+            point = points[i];
+
+            if (radiusChanged) {
+                point.radius = Math.random() * radiusVariation + radiusMin;
+            }
+
+            if (!noGravity)
+            point.vy += gravity;
+            point.x += point.vx;
+            point.y += point.vy;
+            //point.life += 1;
+
+            if (point.x >= width) {
+                point.x = width;
+                point.vx *= bounce;
+            } else if (point.x <= 0) {
+                point.x = 0;
+                point.vx *= bounce;
+            }
+
+            if (point.y >= height) {
+                if(!bouncy){
+                    initPoint(point);
+                } else {
+                    point.y = height;
+                    point.vy *= bounce;
+                }               
+            } else if (point.y <= 0) {
+                point.y = 0;
+                point.vy *= bounce;
+                
+            }
+
+            if (point.life === lifetime) {
+              point.isAlive = false;
+            }
+        }
+
+        if (points.length > maxPoints) {
+            while (points.length > maxPoints) {
+                points.pop();
+            }
+        }
+
+        if (radiusChanged) {
+            radiusChanged = false;
+        }
+
+        if (points.length < maxPoints) {
+          initPoint();
+        }
+    }
+
+    function draw() {
+        var len = points.length,
+            i,
+            point;
+
+        context.clearRect(0, 0, width, height);
+        context.fillStyle = "rgb(225,225,225)";
+        context.fillRect(0, 0, width, height);
+
+        for (i = 0; i < len; i++) {
+            
+            point = points[i];
+
+            if (!point.isAlive) {
+              resetPoint(point);
+            }
+            
+            context.globalAlpha = (1 - point.life / 100);
+            
+            context.globalAlpha = (0.85);
+
+            if (colorEnabled) {
+                context.fillStyle = point.color;
+            } else {
+                context.fillStyle = "rgb(0,0,0)";
+            }
+            context.filter = "blur(10px)";
+            context.beginPath();
+            context.arc(point.x, point.y, point.radius, 0, Math.PI * 2, false);
+            context.fill();
+        }
+    }
+
+    </script>
+</body>
+</html>

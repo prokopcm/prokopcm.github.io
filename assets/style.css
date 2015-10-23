@@ -1,0 +1,118 @@
+body {
+    margin: 0px;
+    overflow-x: none;
+    background: url('assets/images/paper_bg.jpg');
+    font-family: helvetica, arial;
+}
+
+.bg-container {
+    position: relative;
+}
+
+.logo {
+    background: url('assets/images/logo.png');
+    width: 164px;
+    height: 122px;
+    display: inline-block;
+    position: absolute;
+}
+
+.content-wrapper {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.content {
+    background: rgba(0,0,0,0.62);
+    padding: 25px;
+    color: #EEE;
+    margin: 25px;
+    transition: margin 400ms;
+    -webkit-transition: margin 400ms;
+    -moz-transition: margin 400ms;
+}
+
+.name-wrapper {
+    margin-left: 184px;
+}
+
+.hero {
+    font-size: 2.1em;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.sub-hero {
+    font-size: 1.25em;
+    display: inline-block;
+    position: relative;
+    left: 2px;
+    bottom: 2px;
+}
+
+.pronounce-guide {
+    position: absolute;
+    top: 66px;
+    background: url('assets/images/pronounce.png');
+    width: 184px;
+    height: 16px;
+}
+
+.about {
+    font-size: 1.1em;
+    margin-top: 27px;
+}
+
+.pad-bottom {
+    padding-bottom: 50px;
+}
+
+.description {
+    color: #ccc;
+}
+
+li {
+    padding: 5px;
+}
+
+a {
+    color: #eee;
+}
+
+.contact-info {
+    text-align: center;
+    font-size: 12px;
+    font-style: italic;
+    color: #a08155;
+    
+    font-weight: bold;
+    
+}
+
+@media all and (max-width: 750px) {
+    
+    .content {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+
+    .logo {
+        display: none;
+    }
+
+    .name-wrapper {
+        margin: auto;
+    }
+
+    .about {
+        margin-top: 0px;
+    }
+}
+
+@media all and (max-width: 1165px) {
+    
+    .sub-hero {
+        left: 0px;
+        bottom: 0px;
+    }
+}

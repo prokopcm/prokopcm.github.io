@@ -1,19 +1,70 @@
 <!DOCTYPE html>
+<html>
+<!-- Hello, welcome. You may reach me at gmail under the account prokopcm. -->
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Hello, world!</title>
-        <meta name="description" content="">
+        <meta name="keywords" content="Michael Prokopchuk, cupchucker, prokopcm">
+        <meta name="description" content="The personal blog of Michael Prokopchuk--developer, musician, traveler, lanauge, and data enthusiast.">
+        <link rel="index" title="Cupchucker - The Blog of Michael Prokopchuk" href="http://prokopcm.github.io/">
+        <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">  
+        <title>Cupchucker</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-        <style>
-
-        </style>
+        <link rel="stylesheet" href="assets/style.css">
     </head>
     <body>
-        <h1>Hello, world</h1>
-        <script>
+        <div class="bg-container">
+        <div class="content">
+            <div class="logo"></div>
+            <div class="name-wrapper pad-bottom">
+                
+                <div class="hero">Prokopchuk, Michael - </div>
+                <div class="sub-hero">Creative Technical Solution Creator, Professional Cup Chucker</div>
+                <div class="pronounce-guide desciption"></div>
+            </div>
+            <div class="about pad-bottom">
+                Hi, I work as a developer making web and mobile apps, with a tich of graphic design thrown in. JavaScript is pretty cool, but so are C#, PHP, Python, SQL, Photoshop, After Effects, and Lightwave. Someday I'll bother to actually make this into a real website. 
+                <br />
+                In my spare time, I like to study linguistics, and butcher foreign languages in attempts at communication.
+            </div>
+            <div class="projects">
+                Here are some of my projects:<br>
+                <ul>
+                    <li><a href="projects/trade_v0.2/tradesim.html" target="blank">Trade Simulator (work in progress)</a><span class="description"> - web app - A "game" that orgininally started as a way to lean the bare metal workings of the HTML Canvas. It challenges definitions of such words as "fun," "entertaining," and "playable," but nonetheless has been an interesting project to architect and implement from the ground up using no existing canvas or game frameworks.</span></li>
+                    
+                    <li>Latin Language Coach (work in progress)<span class="description"> - web app - spaced-repetition-based tool to help learn Latin. Made iteratively to help me learn more effectively. Started in Python/sqlite with an AngularJS frontend. Link coming soon.</span></li>
+                    <!-- If you really want to see a link of a pre-pre-alpha build, check out latin.herokuapp.com -->
+                    
+                    <li>Full Thrust Utility App<span class="description"> - Android, iOS (phoneGap web app) - Utility app to keep track of all the pen and paper aspects of the spaceship combat tabletop game, Full Thrust. When it's done, I'll post Google Play/iOS Store links...</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="skills-resume">
+                <br>
+                <a class="resume-link" href="assets/resume.pdf">Resume (.pdf)</a>
+            </div>
+        </div>
+    </div>
+    <div class="contact-info">Contact info in the source</div>
+    <script type="text/javascript">
+        // Mobile devices can't view source easily, so throw them a bone
+        // and show them the email without making the user jump through any
+        // hoops
 
-        </script>
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(
+            navigator.userAgent)) {
+
+            var el = document.getElementsByClassName('contact-info')[0],
+
+                // email in hex to prevent crawlers from being jerks
+                info = "Contact me at &#x70;&#x72;&#x6f;&#x6b;&#x6f;&#x70;&#x63;&#x6d;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;";
+            el.innerHTML = info;
+        }
+
+        // disable popup from free hosting
+        document.onload = function() {
+            var e = document.getElementById("visas_style_div");e.parentNode.removeChild(e);
+        }
+    </script>
     </body>
 </html>
