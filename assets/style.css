@@ -1,7 +1,7 @@
 body {
     margin: 0px;
     overflow-x: none;
-    background: url('assets/images/paper_bg.jpg');
+    background: url('images/paper_bg.jpg');
     font-family: helvetica, arial;
 }
 
@@ -10,7 +10,7 @@ body {
 }
 
 .logo {
-    background: url('assets/images/logo.png');
+    background: url('images/logo.png');
     width: 164px;
     height: 122px;
     display: inline-block;
@@ -53,7 +53,7 @@ body {
 .pronounce-guide {
     position: absolute;
     top: 66px;
-    background: url('assets/images/pronounce.png');
+    background: url('images/pronounce.png');
     width: 184px;
     height: 16px;
 }
