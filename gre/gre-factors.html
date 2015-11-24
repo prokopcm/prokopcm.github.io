@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>GRE Study - Factors</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+        <style>
+            body {margin:auto;}
+            .percent {padding-right: 15px;}
+            .keypad {
+                width: 75%;
+                margin: auto;
+            }
+            .middle {
+                width: 75%;
+                margin: auto;
+                padding-top: 50px;
+            }
+            .percent-container {
+                text-align: center;
+                color: #555;
+                padding: 10px;
+            }
+            .alert-warning-container {
+                height: 52px;
+            }
+            .percent-container span {
+                display: inline-block;
+            }
+            .padding-10 {
+                padding-top: 10px;
+            }
+            .question {
+                font-style: italic;
+                font-size: 18px;
+                padding: 2em 0;
+            }
+            .number-button {
+                outline: none !important;
+            }
+            .number-button.active {
+                background-color: #e0e0e0;
+                border-color: #dbdbdb;
+            }
+            .animatable {
+                transition: background-color 725ms;
+            }
+        </style>
+    </head>
+    <body>
+    <a href="../gre/index.html"><- Back</a>
+        <div class="middle">
+            <div class="percent-container"><span class="percent"><span id="percentage"></span>%</span><span id="correct">0</span> out of <span id="total">0</span> correct.</div>
+            <div class="alert-warning-container">
+                <div id="error" class="alert alert-warning invisible"></div>
+            </div>            
+            <div class="keypad">
+                <div class="row">
+                    <div class="question" id="question"></div>
+                </div>
+                <div class="row">
+                    <button class="btn btn-lg btn-default number-button" id="1">1</button>
+                    <button class="btn btn-lg btn-default number-button" id="2">2</button>
+                    <button class="btn btn-lg btn-default number-button" id="3">3</button>
+                    <button class="btn btn-lg btn-default number-button" id="4">4</button>
+                    <button class="btn btn-lg btn-default number-button" id="5">5</button>
+                    <button class="btn btn-lg btn-default number-button" id="6">6</button>
+                    <button class="btn btn-lg btn-default number-button" id="7">7</button>
+                    <button class="btn btn-lg btn-default number-button" id="8">8</button>
+                    <button class="btn btn-lg btn-default number-button" id="9">9</button>
+                    <button class="btn btn-lg btn-default number-button" id="10">10</button>
+                </div>
+                <div class="row">
+                    
+                </div>
+                <div class="row">
+                    
+                </div>
+                <div class="row padding-10">
+                    
+                    <button class="btn btn-lg btn-primary" id="submit-answer">Submit</button>
+                </div>
+            </div>
+        </div>
+
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
+        
+        <script>
+        function Quizzer() {
+            this.total = -1;
+            this.correct = -1;
+            this.question = null;
+            this.questionCorrect = true;
+            this.range = 100;
+            this.errorType = "";
+
+            this.next = function(correct) {
+                if (correct) {
+                    _toggleError(!correct);
+                } else {
+                    this.questionCorrect = false;
+                    _updateErrorType();
+                    _toggleError(!correct);
+                    return;
+                }
+
+                _updateTotals(this.questionCorrect);
+                _generateQuestion();
+            };
+
+            this.checkAnswer = function() {
+                var ua = this.getAnswers();
+                var qa = this.question.answers;
+
+                var hasAllAnswers = ua.length === qa.length;
+                var hasCorrectAnswers = qa.every((e) => {
+                    return ua.indexOf(e) > -1;
+                });
+                this.next(hasAllAnswers && hasCorrectAnswers);
+            };
+
+            this.getAnswers = function() {
+                var answers = $('.number-button.active');
+                var selectedAnswers = [];
+                answers.each(function(a) {
+                    selectedAnswers.push(Number(answers[a].id));
+                });
+
+                return selectedAnswers;
+            }
+
+            this.toggleNumberButton = function(e) {
+                $('#' + e.target.id).toggleClass('active');
+            }
+
+            function _generateQuestion() {
+                var number = Math.floor(Math.random(this.range) * this.range);
+                var answers = [];
+                for (i = 1; i < 11; i++) {
+                    if ((number / i) === Math.floor(number / i)) {
+                        answers.push(i);
+                    }
+                }
+                this.question = {
+                    number: number,
+                    text: 'Select the factors of ' + number + '.',
+                    answers: answers
+                };
+                this.questionCorrect = true;
+                $('#question').text(this.question.text);
+                $('.number-button').removeClass('active');
+            };
+
+            function _updateTotals(correct) {
+                this.total++;
+                if (correct) {
+                    this.correct++;
+                }
+                $('#correct').text(this.correct);
+                $('#total').text(this.total);
+                $('#percentage').text(Math.floor((this.correct / this.total) * 100) || 0);
+                flashColor(this.questionCorrect);
+            }
+
+            function flashColor(correct) {
+                var container = $('.percent-container');
+                var originalColor = container.css('backgroundColor');
+                container.css({
+                    'background-color': correct ? '#5cb85c' : '#fcf8e3'
+                });
+                
+                setTimeout(function() {
+                    container.addClass('animatable');
+                    container.css({
+                        'background-color': 'white'
+                    });
+                }, 50);
+                setTimeout(function() {
+                    
+                   container.removeClass('animatable');
+                }, 750);
+            }
+
+            function _toggleError(show) {
+                $('#error').text(this.errorType).toggleClass('invisible', !show);
+            }
+
+            function _updateErrorType() {
+                var ua = this.getAnswers();
+                var qa = this.question.answers;
+
+                var tooFewAnswers = ua.length < qa.length;
+                var tooManyAnswers = ua.length > qa.length;
+                var hasCorrectAnswers = qa.every((e) => {
+                    return ua.indexOf(e) > -1;
+                });
+
+                if (tooFewAnswers) {
+                    this.errorType = "You're missing one or more factors.";
+                } else if (tooManyAnswers) {
+                    this.errorType = "You've got too many factors selected.";
+                } else if (!hasCorrectAnswers) {
+                    this.errorType = "One or more of your answers is incorrect.";
+                }
+            }
+
+            _updateTotals = _updateTotals.bind(this);
+            _toggleError = _toggleError.bind(this);
+            _updateErrorType = _updateErrorType.bind(this);
+            _generateQuestion = _generateQuestion.bind(this);
+            $(document).keypress((e) => {
+                if (e.keyCode > 47 && e.keyCode < 58) {
+                    var keyCode = e.keyCode % 48;
+                    if (keyCode === 0) {
+                        keyCode = 10;
+                    }
+                    $('#' + keyCode).toggleClass('active');
+                } else if (e.keyCode === 13) {
+                    this.checkAnswer();
+                }
+            });
+            $('#submit-answer').on('click', e => {this.checkAnswer();});
+            $('.number-button').on('click', e => {this.toggleNumberButton(e);});
+        }
+        $(function() {
+            var q = new Quizzer();
+            q.next(true);
+        });
+        </script>
+    </body>
+</html>

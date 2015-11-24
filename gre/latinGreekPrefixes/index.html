@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>GRE Study - Latin/Greek Prefixes</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+        <style>
+            body {margin:auto;}
+            .percent {padding-right: 15px;}
+            .keypad {
+                width: 75%;
+                margin: auto;
+            }
+            .middle {
+                width: 75%;
+                margin: auto;
+                padding-top: 50px;
+            }
+            .percent-container {
+                text-align: center;
+                color: #555;
+                padding: 10px;
+            }
+            .alert-warning-container {
+                height: 52px;
+            }
+            .percent-container span {
+                display: inline-block;
+            }
+            .padding-10 {
+                padding-top: 10px;
+            }
+            .question {
+                font-style: italic;
+                font-size: 18px;
+                padding: 2em 0;
+            }
+            .number-button {
+                outline: none !important;
+            }
+            .number-button.active {
+                background-color: #e0e0e0;
+                border-color: #dbdbdb;
+            }
+            .animatable {
+                transition: background-color 725ms;
+            }
+        </style>
+    </head>
+    <body>
+    <a href="#" onclick="javacript:window.history.back();"><- Back</a>
+        <div class="middle">
+            <div class="percent-container"><span class="percent"><span id="percentage"></span>%</span><span id="correct">0</span> out of <span id="total">0</span> correct.</div>
+            <div class="alert-warning-container">
+                <div id="error" class="alert alert-warning invisible"></div>
+            </div>            
+            <div class="keypad">
+                <div class="row">
+                    <div class="question" id="question"></div>
+                </div>
+                
+                <div class="row">
+                    <input type="text" class="answer" id="answer" placeholder="answer" />
+                </div>
+                <div class="row">
+                    
+                </div>
+                <div class="row padding-10">
+                    
+                    <button class="btn btn-lg btn-primary" id="submit-answer">Submit</button>
+                </div>
+            </div>
+        </div>
+
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
+        
+        <script src="prefixes.js"></script>
+        <script src="Word.js"></script>
+        <script src="WordList.js"></script>
+        <script src="main.js"></script>
+    </body>
+</html>
