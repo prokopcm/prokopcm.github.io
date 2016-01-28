@@ -1,0 +1,148 @@
+<html>
+<head>
+    <title>Tradearrgh Sim 5402</title>
+    <link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <!-- libs -->
+    <script src="libs/jquery2.0.0.js"></script>
+    <script src="libs/underscore1.4.4.js"></script>
+    <script src="libs/radio.js"></script>
+    <script src="libs/mustache.js"></script>
+
+    <!-- common/util -->
+    <script src="ts/util/Helpers.js"></script>
+    <script src="ts/util/Config.js"></script>
+
+    <!-- modules : components -->
+    <script src="ts/components/Component.js"></script>
+    <script src="ts/components/Damageable.js"></script>
+    <script src="js/components/Dockable.js"></script>
+    <script src="ts/components/Eventable.js"></script>
+    <script src="ts/components/Movable.js"></script>
+    <script src="ts/components/Renderable.js"></script>    
+    <script src="ts/components/Rotatable.js"></script>
+    <script src="ts/components/Selectable.js"></script>
+    <script src="ts/components/Storable.js"></script>
+    <script src="ts/components/Collidable.js"></script>
+    <script src="ts/components/Tickable.js"></script>
+    
+    <!-- <script src="js/components/Scalable.js"></script> -->
+
+    <!-- modules : systems -->
+    
+    <script src="ts/systems/ClockSystem.js"></script>
+    <script src="ts/systems/MovementSystem.js"></script>
+    <script src="ts/systems/CollisionSystem.js"></script>
+    <script src="ts/systems/SelectionSystem.js"></script>
+    <script src="ts/systems/EconomySystem.js"></script>
+
+    <!-- modules : objects -->
+    <script src="ts/objects/GameObject.js"></script>
+    <script src="ts/objects/TradeItem.js"></script>
+    <script src="ts/objects/Particle.js"></script>
+    <script src="ts/objects/Emitter.js"></script>
+    
+    <script src="ts/objects/WaterBackground.js"></script>
+    <script src="ts/objects/City.js"></script>
+    <script src="ts/objects/Ship.js"></script>
+    <script src="ts/objects/Collision.js"></script>
+    <script src="ts/objects/Marker.js"></script>
+    <script src="ts/objects/Camera.js"></script>
+
+    <!-- moudles : UI Managers -->
+    <script src="ts/ui/MouseMgr.js"></script>
+    <script src="ts/ui/DebugMgr.js"></script>
+
+    <script src="ts/TradeGame.js"></script>
+
+    <script id="tpl-city-screen" type="x-tmpl-mustache">
+        <div class="header-wrapper">
+                <span class="header-text"><span class="city-name">{{name}}</span></span>
+                <div class="close-btn">&#10006;</div>
+            </div>
+            <div class="content-wrapper">
+                <div class="items-wrapper">
+                    <span class="section-header">Inventory:</span>
+                    <div class="city-item-info"></div>
+                </div>
+                <div class="section-header">Dock:</div>
+                <div><span class="header-text">Your Docked Ships: </span><span class="num-ships">0</span>
+                    <div class="docked-ships-info"></div>
+                </div>
+            </div>
+    </script>
+    <script id="tpl-city-screen-item" type="x-tmpl-mustache">
+        <div class="city-item">
+            <span class="item-name">{{item.name}}</span>
+            <span class="item-qty">{{quantity}}</span>
+        </div>
+    </script>
+</head>
+<body>
+    <div class="game-container">
+        <!--<div class="hero-text text-center">TradAarrrgh Sim 5402</div>-->
+        <canvas width="900" height="500" id="canvas"></canvas>
+        <div id="city-screen">
+            <!-- template here -->
+        </div>
+        <div class="mission-box">
+            <span class="mission">Current Mission: <span class="mission-title"></span></span>
+            <div class="mission-description">
+            </div>
+            <div class="return-to">
+                Return to: <span class="mission-return"></span>
+            </div>
+        </div>
+        <div class="selected-area"></div>
+        <div class="debug-info">
+            <div><b>Dev kit!</b></div>
+            <div>
+                <input type="checkbox" id="show-object-origin">Show local object origins</input>
+            </div>
+            <div>
+                <input type="checkbox" id="show-object-scale">Show object boundaries</input>
+            </div>
+            <div>
+                <input type="checkbox" id="show-object-collisions">Show object collisions</input>
+            </div>
+            <div>
+                <input type="checkbox" id="show-ship-headings">Show ship headings</input>
+            </div>
+        </div>
+    </div>
+    
+    <script type="text/javascript">
+    function calcSize(e) {
+        var width = Math.floor(window.innerWidth),
+            height = parseInt(window.innerHeight * .9, 10);
+
+        console.log(window.innerHeight, window.innerHeight * .9);
+
+        game.updateDimensions(width, height);
+
+        $('.game-container').css({
+            width: width,
+            height: 'calc(100% - 15px)'
+        });
+
+        $('#canvas').attr({
+            width: width,
+            height: (height / 4) * 3
+        });
+    }
+
+    // request animation frame stuff
+    (function() {
+        var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+            window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+        window.requestAnimationFrame = requestAnimationFrame;
+    })();
+
+    $(window).on('resize', calcSize);
+
+    var game = new Trade.Game($("#canvas")[0]);
+
+    calcSize();
+    </script>
+</body>
+</html>
