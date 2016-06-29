@@ -5,7 +5,7 @@ module Trade.Components {
 
     export class Dockable extends Component {
         type = "dockable";
-        
+
         dockable = true;
 
         /**
@@ -13,23 +13,25 @@ module Trade.Components {
          * @type {object<Trade.Objects.Ship>}
          */
         dockedShips: Array<Trade.Objects.Ship>;
-        
+
         onDock: (ship: Trade.Objects.Ship) => void;
         onUndock: (ship: Trade.Objects.Ship) => void;
-        
+
         constructor(options?) {
             super();
             options = options || {};
-            
+
             this.onDock = options.onDock || function(ship) {
                 return false;
             };
-            
+
             this.onUndock = options.onUndock || function(ship) {
                 return false;
             };
+
+            this.dockedShips = options.dockedShips || [];
         }
-        
+
         /**
          * Adds a ship to the list of docked ships
          * @param  {Trade.Objects.Ship} the ship to dock in the object
@@ -40,7 +42,7 @@ module Trade.Components {
                 this.onDock(ship);
             }
         }
-        
+
         /**
          * Removes a ship to the list of docked ships
          * @param  {Trade.Objects.Ship} the ship to undock from the object
@@ -51,21 +53,21 @@ module Trade.Components {
                 this.onUndock(ship);
             }
         }
-        
+
         getDockingInfo(owner: string) {
             var needleOwner = owner || Trade.Config.owners['PLAYER'],
                 dockedObjects = this.dockedShips,
                 dockedPlayerObjects = [];
-        
+
             for (var object in dockedObjects) {
                 if (dockedObjects[object].owner === needleOwner) {
                     dockedPlayerObjects.push(dockedObjects[object]);
                 }
             }
-        
+
             var numOfObjsInDockable = Object.keys(dockedObjects).length,
                 numOfPlayerObjsInDockable = dockedPlayerObjects.length;
-        
+
             return {
                 numDockedObjects: numOfObjsInDockable,
                 numDockedPlayerObjects: numOfPlayerObjsInDockable,

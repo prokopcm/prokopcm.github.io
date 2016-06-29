@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+	<meta charset=utf-8 />
+	<title>Zenvas</title>
+	<style>
+		html, body {
+			margin: 0;
+			padding: 0;
+			border: 0;
+			vertical-align: baseline;
+		}
+
+		canvas {
+			width: 100%;
+			height: 100%;
+			cursor: url('brush.png') 10 10, auto;
+		}
+	</style>
+	<body>
+		<canvas id="zenvas"></canvas>
+		<script>
+			const zenvas = document.getElementById('zenvas');
+			const ctx = zenvas.getContext('2d');
+
+			zenvas.width  = window.innerWidth;
+			zenvas.height  = window.innerHeight;
+			const zenvasWidth = zenvas.width;
+			const zenvasHeight = zenvas.height;
+
+			const LIFE_AMT = 600;
+			const HALF_LIFE = Math.floor(LIFE_AMT / 2);
+			const MIN_DELTA = 5;
+			const LINE_SIZE = 10;
+			const LINE_VARIATION = 1.5;
+
+			let painting = false;
+			let strokes = [];
+
+			zenvas.addEventListener('mousedown', drawStart);
+			zenvas.addEventListener('touchstart', drawStart);
+			function drawStart(e) {
+				e.preventDefault();
+			  	painting = true;
+			  	strokes.push([]);
+			  	addClick(e.pageX || e.touches[0].pageX, e.pageY  || e.touches[0].pageY);
+			}
+
+			zenvas.addEventListener('mousemove', drawMove);
+			zenvas.addEventListener('touchmove', drawMove);
+			function drawMove(e) {
+				e.preventDefault();
+				if (painting) {
+					const pageX = e.pageX ? e.pageX : e.touches[0].pageX;
+					const pageY = e.pageY ? e.pageY : e.touches[0].pageY;
+					const curStroke = strokes[strokes.length - 1];
+					const lastPoint = curStroke[curStroke.length - 1];
+
+					// some optimization, don't store every point
+					if (Math.abs(lastPoint.x - pageX) > MIN_DELTA || 
+						Math.abs(lastPoint.y - pageY) > MIN_DELTA) {
+						addClick(e.pageX || e.touches[0].pageX, e.pageY || e.touches[0].pageY, true);
+					}
+				}
+			}
+
+			zenvas.addEventListener('mouseup', stopPainting);
+			zenvas.addEventListener('touchend', stopPainting);
+			zenvas.addEventListener('mouseleave', stopPainting);
+			zenvas.addEventListener('touchcancel', stopPainting);
+			function stopPainting(e) {
+				e.preventDefault();
+				painting = false;
+			}
+
+			function addClick(x, y, dragging) {
+				let life = LIFE_AMT;
+				strokes[strokes.length - 1].push({x, y, dragging, life});
+			}
+
+			function redraw() {
+				ctx.fillStyle = '#EEEEE6';
+				ctx.globalAlpha = 1.0;
+				ctx.fillRect(0, 0, zenvasWidth, zenvasHeight);
+				ctx.setStroke = '#333333';
+				ctx.lineCap = 'round';
+				ctx.lineJoin = 'round';
+				ctx.lineWidth = LINE_SIZE;
+
+				update(ctx);
+				
+				window.requestAnimationFrame(redraw);
+			}
+
+			function update(ctx) {
+				let p;
+				let toRemove = [];
+
+				// v2
+				const len = strokes.length;
+				let remove = false, 
+					strLen, 
+					stroke;
+
+				for (let i = 0; i < len; i++) {
+					stroke = strokes[i];
+					strLen = stroke.length;
+
+					if (!strokes[i]) {
+						continue;
+					}
+					
+					ctx.beginPath();
+
+					// if we don't have enough points, just draw it normally
+					if (strLen < 3) {
+						remove = drawRegularStroke(ctx, stroke, toRemove, i);
+					} else {
+						remove = drawBezierStroke(ctx, stroke, toRemove, i);
+					}
+
+					if (remove) {
+						strokes.splice(i, 1);
+					}
+					
+					ctx.closePath();
+					ctx.stroke();
+				}
+
+				toRemove.forEach(index => {
+					strokes.splice(index, 1);
+				});
+			}
+
+			function drawRegularStroke(ctx, stroke) {
+				let strLen = stroke.length, p;
+				for (let j = 0; j < strLen; j++) {
+					p = stroke[j];
+					let lifeLeft = p.life / HALF_LIFE;
+					ctx.globalAlpha = Math.min(1.0, lifeLeft < 0.001 ? 0 : lifeLeft);
+					
+					let prev = Math.max(j-1, 0);
+					// ctx.lineWidth = Math.random() * ((LINE_SIZE * LINE_VARIATION) - (LINE_SIZE / LINE_VARIATION)) + (LINE_SIZE / LINE_VARIATION);
+					ctx.moveTo(stroke[prev].x, stroke[prev].y);
+					ctx.lineTo(p.x, p.y);
+					
+					// check for last point
+					if (j === strLen - 1 && p.life === 0) {
+						return true;
+					} else {
+						p.life -= 1;
+					}
+				}
+			}
+
+			function drawBezierStroke(ctx, stroke) {
+				let strLen = stroke.length, p;
+				for (let j = 0; j < strLen - 2; j++) {
+					p = stroke[j];
+					let lifeLeft = p.life / HALF_LIFE;
+					ctx.globalAlpha = Math.min(1.0, lifeLeft < 0.001 ? 0 : lifeLeft);
+					
+					let prev = Math.max(j-1, 0);
+					ctx.moveTo(stroke[prev].x, stroke[prev].y);
+					ctx.bezierCurveTo(p.x, p.y, stroke[j+1].x, stroke[j+1].y, stroke[j+2].x, stroke[j+2].y);
+					
+					// check for last point
+					if (j === strLen - 1 && p.life === 0) {
+						return true;
+					} else {
+						p.life -= 1;
+					}
+				}
+			}
+
+			// starting off
+			ctx.fillStyle = '#EEEEE6';
+			ctx.fillRect(0, 0, zenvasWidth, zenvasHeight);
+			requestAnimationFrame(redraw);
+
+		</script>
+	</body>
+</html>

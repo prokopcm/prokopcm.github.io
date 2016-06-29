@@ -8,12 +8,12 @@
 /// <reference path="Component.ts" />
 
 module Trade.Components {
-	interface RotationConstraint {
+	export interface RotationConstraint {
 		active: boolean;
 		constraintFormula: () => boolean;
 	}
 	
-	interface RotatableOptions {
+	export interface RotatableOptions {
 		rotating?: boolean;
 		rotation?: number;
 		destRotation?: number;

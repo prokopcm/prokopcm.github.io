@@ -25,7 +25,7 @@ var Trade;
         function Game(canvas) {
             /**
              * List of renderable scene items
-             * @type {Array<TradeObjects.GameObject>}
+             * @type {Array<Trade.Objects.GameObject>}
              */
             this.sceneItems = [];
             this.ships = [];
@@ -320,6 +320,12 @@ var Trade;
                 }
             });
             $('#city-screen').show();
+            $('.close-btn').click(function (e) {
+                self.hideCityScreen();
+            });
+        };
+        Game.prototype.hideCityScreen = function () {
+            $('#city-screen').hide();
         };
         return Game;
     })();

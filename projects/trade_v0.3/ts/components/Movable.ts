@@ -9,7 +9,7 @@
 
 module Trade.Components {
 
-	interface MovableOptions {
+	export interface MovableOptions {
 		/** Whether the object is currently in a moving state */
 		moving?: boolean;
 		/**The object's X-velocity */
