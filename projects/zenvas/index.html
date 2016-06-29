@@ -102,12 +102,13 @@
 					stroke;
 
 				for (let i = 0; i < len; i++) {
-					stroke = strokes[i];
-					strLen = stroke.length;
 
 					if (!strokes[i]) {
 						continue;
 					}
+					
+					stroke = strokes[i];
+					strLen = stroke.length;
 					
 					ctx.beginPath();
 
