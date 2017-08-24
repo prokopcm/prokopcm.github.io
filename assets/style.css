@@ -32,6 +32,9 @@ body {
     -moz-transition: margin 400ms;
 }
 
+.name {
+    line-height: 1.5;
+}
 .name-wrapper {
     margin-left: 184px;
 }
