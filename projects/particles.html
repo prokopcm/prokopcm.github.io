@@ -78,13 +78,16 @@
     <div class="controls">
         <div class="checks">
             <div class="colorToggle">
-                <input type="checkbox" name="color" value="0" id="color"> Color
+                <input type="checkbox" name="color" value="0" id="color"> 
+                <label for="color">Color</label>
             </div>
             <div>
-                <input type="checkbox" name="color" value="0" id="bouncy" checked=true> Bouncy
+                <input type="checkbox" name="color" value="0" id="bouncy" checked=true> 
+                <label for="bouncy">Bouncy</label>
             </div>
             <div>
-                <input type="checkbox" name="color" value="0" id="gravity"> Gravity-schmavity
+                <input type="checkbox" name="color" value="0" id="gravity"> 
+                <label for="gravity">Gravity-schmavity</label>
             </div>
         </div>
         <div class="text-inputs">
@@ -308,8 +311,8 @@
             point;
 
         context.clearRect(0, 0, width, height);
-        context.fillStyle = "rgb(225,225,225)";
-        context.fillRect(0, 0, width, height);
+        // context.fillStyle = "rgb(225,225,225)";
+        // context.fillRect(0, 0, width, height);
 
         for (i = 0; i < len; i++) {
             
@@ -319,16 +322,16 @@
               resetPoint(point);
             }
             
-            context.globalAlpha = (1 - point.life / 100);
+            // context.globalAlpha = (1 - point.life / 100);
             
-            context.globalAlpha = (0.85);
+            // context.globalAlpha = (.5);
 
             if (colorEnabled) {
                 context.fillStyle = point.color;
             } else {
                 context.fillStyle = "rgb(0,0,0)";
             }
-            context.filter = "blur(10px)";
+            // context.filter = "blur(10px)";
             context.beginPath();
             context.arc(point.x, point.y, point.radius, 0, Math.PI * 2, false);
             context.fill();
