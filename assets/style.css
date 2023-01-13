@@ -5,6 +5,12 @@ body {
     font-family: helvetica, arial;
 }
 
+@supports (font-size-adjust: 1) {
+    .content {
+        font-size-adjust: 0.5;
+    }
+}
+
 .bg-container {
     position: relative;
 }
@@ -24,14 +30,17 @@ body {
 }
 
 .content-wrapper {
+    margin: auto;
     margin-top: 25px;
     margin-bottom: 25px;
 }
 
 .content {
+    line-height: calc(1ex / 0.32);
     background: rgba(0,0,0,0.62);
     padding: 25px;
     color: #EEE;
+    
     margin: 25px;
     transition: margin 400ms;
     -webkit-transition: margin 400ms;
@@ -109,6 +118,7 @@ a {
     }
 
     .content {
+        /* width: auto; */
         margin-left: 0px;
         margin-right: 0px;
     }
@@ -127,7 +137,6 @@ a {
 }
 
 @media all and (max-width: 1165px) {
-    
     .sub-hero {
         left: 0px;
         bottom: 0px;
