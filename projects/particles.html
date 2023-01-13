@@ -2,12 +2,12 @@
 <html>
 <head>
     <title>Particles</title>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     <style type="text/css">
         body {
             margin: 0px;
-            
         }
+
         .controls {
             position: absolute;
             bottom: 0px;
@@ -16,6 +16,7 @@
             width: 100%;
             font-family: helvetica, sans-serif;
         }
+
         .checks div, .text-inputs div {
             display: inline-block;
         }
@@ -29,39 +30,41 @@
             width: 100%;
             position: relative;
         }
+
         .lighterwaves {
             position: absolute;
             display: inline-block;
             right: 0px;
             top: 35px;
         }
+
         .lighter {
             font-size: 20px;
         }
+        
         .waves {
             position: relative;
             left: -4px;
             font-weight: bold;
             font-size: 20px;
         }
+        
         .twod {
             position: relative;
             font-size: 10px;
             top: -5px;
             left: -5px;
         }
+
         .groundplane {
-            
             background: #bbc0c9; /* Old browsers */
-        background: -moz-linear-gradient(top,  #bbc0c9 0%, #c1c1c1 100%); /* FF3.6+ */
-        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#bbc0c9), color-stop(100%,#c1c1c1)); /* Chrome,Safari4+ */
-        background: -webkit-linear-gradient(top,  #bbc0c9 0%,#c1c1c1 100%); /* Chrome10+,Safari5.1+ */
-        background: -o-linear-gradient(top,  #bbc0c9 0%,#c1c1c1 100%); /* Opera 11.10+ */
-        background: -ms-linear-gradient(top,  #bbc0c9 0%,#c1c1c1 100%); /* IE10+ */
-        background: linear-gradient(to bottom,  #bbc0c9 0%,#c1c1c1 100%); /* W3C */
-        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bbc0c9', endColorstr='#c1c1c1',GradientType=0 ); /* IE6-9 */
-
-
+            background: -moz-linear-gradient(top,  #bbc0c9 0%, #c1c1c1 100%); /* FF3.6+ */
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#bbc0c9), color-stop(100%,#c1c1c1)); /* Chrome,Safari4+ */
+            background: -webkit-linear-gradient(top,  #bbc0c9 0%,#c1c1c1 100%); /* Chrome10+,Safari5.1+ */
+            background: -o-linear-gradient(top,  #bbc0c9 0%,#c1c1c1 100%); /* Opera 11.10+ */
+            background: -ms-linear-gradient(top,  #bbc0c9 0%,#c1c1c1 100%); /* IE10+ */
+            background: linear-gradient(to bottom,  #bbc0c9 0%,#c1c1c1 100%); /* W3C */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bbc0c9', endColorstr='#c1c1c1',GradientType=0 ); /* IE6-9 */
             position: absolute;
             bottom: 100px;
             height: 20%;
@@ -197,6 +200,7 @@
 
     function addPoint() {
         var point;
+
         if (numPoints < maxPoints) {
             point = {};
             initPoint(point);
@@ -211,7 +215,6 @@
     }
 
     function initPoint(p) {
-
         if (!p) {
             var p = {};
         }
