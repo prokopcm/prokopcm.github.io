@@ -70,10 +70,9 @@ body {
 
 .sub-hero {
     font-size: 1.25em;
-    display: inline-block;
     position: relative;
-    left: 2px;
-    bottom: 2px;
+    left: 0px;
+    bottom: 0px;
 }
 
 .pronounce-guide {
@@ -133,12 +132,5 @@ a {
 
     .about {
         margin-top: 0px;
-    }
-}
-
-@media all and (max-width: 1165px) {
-    .sub-hero {
-        left: 0px;
-        bottom: 0px;
     }
 }
