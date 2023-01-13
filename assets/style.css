@@ -1,7 +1,7 @@
 body {
     margin: 0px;
     overflow-x: none;
-    background: url('images/paper_bg.jpg');
+    background: url('images/paper_bg-2.jpg');
     font-family: helvetica, arial;
 }
 
@@ -10,11 +10,17 @@ body {
 }
 
 .logo {
-    background: url('images/logo.png');
     width: 164px;
     height: 122px;
     display: inline-block;
     position: absolute;
+    top: 8px;
+}
+
+.logo img {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
 }
 
 .content-wrapper {
