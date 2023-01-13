@@ -18,6 +18,7 @@
 	</style>
 	<body>
 		<canvas id="zenvas"></canvas>
+
 		<script>
 			const zenvas = document.getElementById('zenvas');
 			const ctx = zenvas.getContext('2d');
@@ -26,6 +27,9 @@
 			zenvas.height  = window.innerHeight;
 			const zenvasWidth = zenvas.width;
 			const zenvasHeight = zenvas.height;
+			const zenImage = new Image()
+
+			let zenImgLoaded = false
 
 			const LIFE_AMT = 600;
 			const HALF_LIFE = Math.floor(LIFE_AMT / 2);
@@ -81,6 +85,12 @@
 				ctx.fillStyle = '#EEEEE6';
 				ctx.globalAlpha = 1.0;
 				ctx.fillRect(0, 0, zenvasWidth, zenvasHeight);
+
+				if (zenImgLoaded) {
+					ctx.drawImage(zenImage, 0, 0, 128, 128, zenvasWidth - 138, 10, 128, 128)
+				}
+
+				// set up stroke
 				ctx.setStroke = '#333333';
 				ctx.lineCap = 'round';
 				ctx.lineJoin = 'round';
@@ -102,7 +112,6 @@
 					stroke;
 
 				for (let i = 0; i < len; i++) {
-
 					if (!strokes[i]) {
 						continue;
 					}
@@ -173,11 +182,23 @@
 				}
 			}
 
+			if (window.devicePixelRatio !== 1) {
+				zenvas.setAttribute('width', zenvasWidth * window.devicePixelRatio)
+				zenvas.setAttribute('height', zenvasHeight * window.devicePixelRatio)
+				zenvas.setAttribute('style', 'width="'+ zenvasWidth +'"; height="'+ zenvasHeight +'";')
+				ctx.scale(window.devicePixelRatio, window.devicePixelRatio)
+ 			}
+
 			// starting off
 			ctx.fillStyle = '#EEEEE6';
 			ctx.fillRect(0, 0, zenvasWidth, zenvasHeight);
-			requestAnimationFrame(redraw);
 
+			zenImage.onload = () => {
+				zenImgLoaded = true
+			}
+			zenImage.src = './zen.png'
+
+			requestAnimationFrame(redraw);
 		</script>
 	</body>
 </html>
