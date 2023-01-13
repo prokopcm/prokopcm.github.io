@@ -56,6 +56,15 @@
             left: -5px;
         }
 
+        .sky {
+            position: absolute;
+            bottom: calc(20% + 100px);
+            top: 0px;
+            width: 100%;
+            background: rgb(249,248,255);
+            background: linear-gradient(180deg, rgba(249,248,255,1) 0%, rgba(228,248,255,1) 96%, rgba(189,244,255,1) 100%);
+        }
+
         .groundplane {
             background: #bbc0c9; /* Old browsers */
             background: -moz-linear-gradient(top,  #bbc0c9 0%, #c1c1c1 100%); /* FF3.6+ */
@@ -73,6 +82,7 @@
     </style>
 </head>
 <body>
+    <div class="sky"></div>
     <div class="groundplane"></div>
     <div class="canvasStuff">
         <canvas id="canvas" />
