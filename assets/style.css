@@ -111,6 +111,10 @@ a {
     font-weight: bold;   
 }
 
+.pb-4 {
+    padding-bottom: 16px;
+}
+
 @media all and (max-width: 750px) {
     .hero {
         line-height: 1.7;

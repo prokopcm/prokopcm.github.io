@@ -45,30 +45,24 @@
                 </ul>
             </div>
             <div class="skills-resume">
-                <br>
+                <a href="https://github.com/prokopcm" target="_blank"><img src="assets/images/github-mark-white.png" width="30" height="30"></a>
+                <div class="pb-4"></div>
                 <a class="resume-link" href="assets/resume.pdf">Resume (.pdf)</a>
             </div>
         </div>
     </div>
     <div class="contact-info">Contact info in the source</div>
     <script type="text/javascript">
-        // Mobile devices can't view source easily, so throw them a bone
-        // and show them the email without making the user jump through any
-        // hoops
+        // A human can outsmart a bot some of the time.
+        const el = document.getElementsByClassName('contact-info')[0]
+        const info = "Contact me at &#x70;&#x72;&#x6f;&#x6b;&#x6f;&#x70;&#x63;&#x6d;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;"
 
-        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(
-            navigator.userAgent)) {
-
-            var el = document.getElementsByClassName('contact-info')[0],
-
-                // email in hex to prevent crawlers from being jerks
-                info = "Contact me at &#x70;&#x72;&#x6f;&#x6b;&#x6f;&#x70;&#x63;&#x6d;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;";
-            el.innerHTML = info;
-        }
-
-        // disable popup from free hosting
-        document.onload = function() {
-            var e = document.getElementById("visas_style_div");e.parentNode.removeChild(e);
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
+            el.innerHTML = info
+        } else {
+            setTimeout(() => {
+                el.innerHTML = info
+            }, Math.random() * 4000 + 1000)
         }
     </script>
     </body>
