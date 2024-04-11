@@ -1,1 +1,0 @@
-import{_ as s}from"./nuxt-link.ClnuLl0G.js";import{o as e,u as _,w as a,v as c,a as r}from"./entry.WqVj7nQ1.js";const p={class:"link-text"},u={__name:"LinkButton",props:{to:String},setup(t){return(o,i)=>{const n=s;return e(),_(n,{to:t.to,class:"link-button"},{default:a(()=>[r("span",p,[c(o.$slots,"default")])]),_:3},8,["to"])}}},k=u;export{k as _};
