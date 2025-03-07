@@ -39,7 +39,7 @@ body {
     line-height: calc(1ex / 0.32);
     background: rgba(0,0,0,0.62);
     padding: 25px;
-    color: #EEE;
+    color: #efede9;
     font-size: 1.2rem;
     position: relative;
     
@@ -93,8 +93,6 @@ body {
 .about {
     margin-top: 27px;
 }
-
-
 
 .description {
     color: #ccc;
