@@ -1,7 +1,8 @@
 body {
     margin: 0px;
     overflow-x: none;
-    background: url('images/background.jpg');
+    /* background: url('images/background.jpg'); */
+    background: #FFF6E9;
     font-family: helvetica, arial;
 }
 
@@ -16,11 +17,11 @@ body {
 }
 
 .logo {
-    width: 164px;
-    height: 122px;
+    width: 81px;
+    height: 115px;
     display: inline-block;
     position: absolute;
-    top: 8px;
+    top: 16px;
 }
 
 .logo img {
@@ -30,18 +31,19 @@ body {
 }
 
 .content-wrapper {
-    margin: auto;
-    margin-top: 25px;
-    margin-bottom: 25px;
+    margin: 25px auto;
 }
 
 .content {
+    max-width: 1440px;
     line-height: calc(1ex / 0.32);
     background: rgba(0,0,0,0.62);
     padding: 25px;
     color: #EEE;
+    font-size: 1.2rem;
+    position: relative;
     
-    margin: 25px;
+    margin: auto;
     transition: margin 400ms;
     -webkit-transition: margin 400ms;
     -moz-transition: margin 400ms;
@@ -59,7 +61,14 @@ body {
 }
 
 .name-wrapper {
-    margin-left: 184px;
+    margin-left: 100px;
+}
+
+.skills-resume {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    z-index: 10;
 }
 
 .hero {
@@ -82,16 +91,14 @@ body {
 }
 
 .about {
-    font-size: 1.1em;
     margin-top: 27px;
 }
 
-.pad-bottom {
-    padding-bottom: 30px;
-}
+
 
 .description {
     color: #ccc;
+    font-size: 1.2rem;
 }
 
 li {
@@ -100,19 +107,51 @@ li {
 
 a {
     color: #eee;
+
+    text-decoration-thickness: 2px;
 }
 
 .contact-info {
     text-align: center;
     font-size: 12px;
     font-style: italic;
-    color: #a08155;
+    color: #10375C;
     padding-bottom: 20px;
     font-weight: bold;   
 }
 
 .pb-4 {
     padding-bottom: 16px;
+}
+
+.pb-6 {
+    padding-bottom: 24px;
+}
+
+.pb-2 {
+    padding-bottom: 8px;
+}
+
+.pa-2 {
+    padding: 8px;
+}
+
+.pl-0 {
+    padding-left: 0px !important;
+}
+
+.mr-2 {
+    margin-right: 8px;
+}
+
+.d-inline-block {
+    display: inline-block;
+}
+
+@media all and (max-width: 1540px) {
+    .content {
+        margin: 25px;
+    }
 }
 
 @media all and (max-width: 750px) {
@@ -136,5 +175,14 @@ a {
 
     .about {
         margin-top: 0px;
+    }
+    
+    .skills-resume {
+        top: 10px;
+        right: 10px;
+    }
+    
+    .pronounce-guide {
+        top: 74px;
     }
 }
