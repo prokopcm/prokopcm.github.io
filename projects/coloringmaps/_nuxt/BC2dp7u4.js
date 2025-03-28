@@ -1,1 +1,0 @@
-import{_ as s}from"./DlmpMo77.js";import{k as e,o as a,w as _,a as r,l as c}from"./CaHBlfcC.js";const l={class:"link-text"},m={__name:"LinkButton",props:{to:String},setup(t){return(o,i)=>{const n=s;return a(),e(n,{to:t.to,class:"link-button"},{default:_(()=>[r("span",l,[c(o.$slots,"default")])]),_:3},8,["to"])}}};export{m as _};
