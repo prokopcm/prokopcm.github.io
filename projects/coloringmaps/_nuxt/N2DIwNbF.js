@@ -1,1 +1,0 @@
-import{_ as s}from"./U9jalug8.js";import{x as e,o as a,w as _,a as r,y as c}from"./J7majIDW.js";const i={class:"link-text"},m={__name:"LinkButton",props:{to:String},setup(t){return(o,l)=>{const n=s;return a(),e(n,{to:t.to,class:"link-button"},{default:_(()=>[r("span",i,[c(o.$slots,"default")])]),_:3},8,["to"])}}};export{m as _};
