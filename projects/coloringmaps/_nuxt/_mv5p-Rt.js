@@ -1,1 +1,0 @@
-import{_ as a,a as c}from"./DKJaJLVI.js";import{_ as r,c as l,b as o,a as n,o as _}from"./ChxzQ-ej.js";import"./NK7s7BkB.js";const m={};function i(p,e){const s=a,t=c;return _(),l("div",null,[o(s,{selected:"gallery"}),e[0]||(e[0]=n("section",null,[n("div",{class:"subhero-text"},"Gallery coming soon!")],-1)),o(t)])}const x=r(m,[["render",i]]);export{x as default};
