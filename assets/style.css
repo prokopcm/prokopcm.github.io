@@ -128,15 +128,12 @@ body {
 
 .projects li {
     padding: 8px 12px 8px 14px;
-    /* border: 1px solid rgba(255,255,255,0.18);
-    border-left: 1px solid rgba(255,255,255,0.55); */
     background: rgba(255,255,255,0.05);
     border-radius: 8px;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
     position: relative;
     cursor: pointer;
-    transition: border-color 0.2s ease, border-left-color 0.2s ease;
-    overflow: hidden;
+    transition: background 0.2s ease;
 }
 
 .projects li::before {
@@ -147,7 +144,7 @@ body {
     right: 0;
     bottom: 0;
     background: radial-gradient(
-        50vw circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        50vw circle at var(--mouse-x, 50%) 50%,
         rgba(255, 255, 255, 0.06) 0%,
         transparent 50%
     );
@@ -158,11 +155,6 @@ body {
 
 .projects li:hover::before {
     opacity: 1;
-}
-
-.projects li:hover {
-    border-color: rgba(255,255,255,0.28);
-    border-left-color: rgba(255,255,255,0.5);
 }
 
 .projects li a {
