@@ -1,6 +1,6 @@
 body {
     margin: 0px;
-    min-height: calc(100vh - 25px);
+    min-height: 100vh;
     background: linear-gradient(160deg, #FFF6E9 0%, #f5f0e8 45%, hsl(35, 37%, 90%) 100%);
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, helvetica, arial, sans-serif;
     letter-spacing: 0.01em;
