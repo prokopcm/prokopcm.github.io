@@ -1,0 +1,1 @@
+import{_ as n}from"./ECimbeZ0.js";import{_ as r,c as s,b as c,a as o,o as a}from"./Bo9HxI1E.js";import"./B6ZJ2AEG.js";const l={};function _(m,e){const t=n;return a(),s("div",null,[c(t,{selected:"gallery"}),e[0]||(e[0]=o("section",null,[o("div",{class:"subhero-text"}," Gallery coming soon! ")],-1))])}const u=r(l,[["render",_]]);export{u as default};
